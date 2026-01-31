@@ -85,7 +85,7 @@
     git
     htop
     vulkan-tools
-    glxinfo
+    mesa-demos
   ];
 
   # ── Fonts (good defaults for gaming UIs) ────────────────────────────
