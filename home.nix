@@ -67,9 +67,9 @@
 
       # ── Window rules ──────────────────────────────────────────────────
       windowrule = [
-        "float, match:class:^(pavucontrol)$"
-        "float, match:class:^(nm-connection-editor)$"
-        "float, match:title:^(Steam - News)$"
+        "float on, match:class:^(pavucontrol)$"
+        "float on, match:class:^(nm-connection-editor)$"
+        "float on, match:title:^(Steam - News)$"
         "workspace 5 silent, match:class:^(Steam)$"
         "workspace 4 silent, match:class:^(discord)$"
       ];
