@@ -66,12 +66,12 @@
       ];
 
       # ── Window rules ──────────────────────────────────────────────────
-      windowrulev2 = [
-        "float, class:^(pavucontrol)$"
-        "float, class:^(nm-connection-editor)$"
-        "float, title:^(Steam - News)$"
-        "workspace 5 silent, class:^(Steam)$"
-        "workspace 4 silent, class:^(discord)$"
+      windowrule = [
+        "float, match:class:^(pavucontrol)$"
+        "float, match:class:^(nm-connection-editor)$"
+        "float, match:title:^(Steam - News)$"
+        "workspace 5 silent, match:class:^(Steam)$"
+        "workspace 4 silent, match:class:^(discord)$"
       ];
 
       # ── Keybinds ──────────────────────────────────────────────────────
