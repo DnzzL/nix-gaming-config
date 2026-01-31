@@ -70,10 +70,10 @@
 
       bind = [
         # Core
-        "$mod, Return, exec, kitty"
+        "$mod, Return, exec, ghostty"
         "$mod, D, exec, wofi --show drun"
         "$mod, Q, killactive"
-        "$mod SHIFT, E, exit"
+        "$mod, X, exec, wlogout"
         "$mod, F, fullscreen"
         "$mod, V, togglefloating"
         "$mod, P, pseudo"
@@ -186,13 +186,65 @@
     '';
   };
 
-  # ── Kitty terminal ──────────────────────────────────────────────────
-  programs.kitty = {
+  # ── Ghostty terminal ────────────────────────────────────────────────
+  programs.ghostty = {
     enable = true;
     settings = {
-      font_size = 12;
-      background_opacity = "0.9";
-      confirm_os_window_close = 0;
+      font-size = 12;
+      window-theme = "dark";
+      background-opacity = 0.9;
     };
+  };
+
+  # ── Wlogout power menu ──────────────────────────────────────────────
+  programs.wlogout = {
+    enable = true;
+    layout = [
+      {
+        label = "shutdown";
+        action = "systemctl poweroff";
+        text = "Shutdown";
+        keybind = "s";
+      }
+      {
+        label = "reboot";
+        action = "systemctl reboot";
+        text = "Reboot";
+        keybind = "r";
+      }
+      {
+        label = "logout";
+        action = "hyprctl dispatch exit";
+        text = "Logout";
+        keybind = "l";
+      }
+      {
+        label = "suspend";
+        action = "systemctl suspend";
+        text = "Suspend";
+        keybind = "u";
+      }
+    ];
+    style = ''
+      * {
+        background-image: none;
+        font-family: monospace;
+        font-size: 14px;
+      }
+      window {
+        background-color: rgba(12, 12, 12, 0.9);
+      }
+      button {
+        background-color: rgba(30, 30, 46, 0.8);
+        border: 2px solid #89b4fa;
+        border-radius: 8px;
+        color: #cdd6f4;
+        margin: 10px;
+        padding: 20px;
+      }
+      button:hover {
+        background-color: rgba(89, 180, 250, 0.3);
+      }
+    '';
   };
 }

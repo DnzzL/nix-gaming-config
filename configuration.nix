@@ -121,16 +121,16 @@
     proton-pass
 
     # Hyprland essentials
-    kitty
+    ghostty
     wofi
     waybar
     dunst
-    hyprpaper
     wl-clipboard
     networkmanagerapplet
     pavucontrol
     grim
     slurp
+    wlogout               # Power menu
 
     # System utilities
     git
