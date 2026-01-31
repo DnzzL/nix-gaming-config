@@ -67,11 +67,11 @@
 
       # ── Window rules ──────────────────────────────────────────────────
       windowrule = [
-        "float on, match:class:^(pavucontrol)$"
-        "float on, match:class:^(nm-connection-editor)$"
-        "float on, match:title:^(Steam - News)$"
-        "workspace 5 silent, match:class:^(Steam)$"
-        "workspace 4 silent, match:class:^(discord)$"
+        "float, class:^(pavucontrol)$"
+        "float, class:^(nm-connection-editor)$"
+        "float, title:^(Steam - News)$"
+        "workspace 5 silent, class:^(Steam)$"
+        "workspace 4 silent, class:^(discord)$"
       ];
 
       # ── Keybinds ──────────────────────────────────────────────────────

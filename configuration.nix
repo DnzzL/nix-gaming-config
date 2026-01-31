@@ -6,11 +6,11 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than +5"; # Keep last 5 generations
-  };
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than +5"; # Keep last 5 generations
+  # };
 
   # ── Boot ────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
