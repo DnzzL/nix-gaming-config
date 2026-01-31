@@ -65,15 +65,6 @@
         "nm-applet --indicator"
       ];
 
-      # ── Window rules ──────────────────────────────────────────────────
-      windowrule = [
-        "float, class:^(pavucontrol)$"
-        "float, class:^(nm-connection-editor)$"
-        "float, title:^(Steam - News)$"
-        "workspace 5 silent, class:^(Steam)$"
-        "workspace 4 silent, class:^(discord)$"
-      ];
-
       # ── Keybinds ──────────────────────────────────────────────────────
       "$mod" = "SUPER";
 
