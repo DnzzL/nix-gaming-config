@@ -19,6 +19,10 @@
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # ── Keyboard ────────────────────────────────────────────────────────
+  services.xserver.xkb.layout = "fr";
+  console.keyMap = "fr";
+
   # ── Nvidia (GTX 1660 Super) ─────────────────────────────────────────
   hardware.graphics.enable = true;
 
@@ -73,9 +77,10 @@
     mangohud              # FPS overlay
     gamescope             # Micro-compositor for games
 
-    # Wine (needed by Lutris for Rockstar Launcher)
+    # Wine & DXVK (needed by Lutris for Rockstar Launcher)
     wineWowPackages.staging
     winetricks
+    dxvk
 
     # Apps
     discord
