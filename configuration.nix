@@ -5,19 +5,32 @@
   system.stateVersion = "24.11";
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than +5"; # Keep last 5 generations
+  };
 
   # ── Boot ────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # ── Networking ──────────────────────────────────────────────────────
   networking.hostName = "gaming-pc";
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
 
   # ── Locale & Time ───────────────────────────────────────────────────
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_TIME = "fr_FR.UTF-8";
+    LC_MONETARY = "fr_FR.UTF-8";
+    LC_MEASUREMENT = "fr_FR.UTF-8";
+  };
 
   # ── Keyboard ────────────────────────────────────────────────────────
   services.xserver.xkb.layout = "fr";
@@ -35,6 +48,9 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  # ── Bluetooth ────────────────────────────────────────────────────────
+  hardware.bluetooth.enable = true;
+
   # ── CPU (Ryzen 5 2600) ──────────────────────────────────────────────
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -48,7 +64,9 @@
 
   # ── Desktop (KDE Plasma + SDDM) ────────────────────────────────────
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
+  xdg.portal.enable = true;
 
   # ── Gaming ──────────────────────────────────────────────────────────
   programs.steam = {
