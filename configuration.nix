@@ -62,11 +62,26 @@
     pulse.enable = true;
   };
 
-  # ── Desktop (KDE Plasma + SDDM) ────────────────────────────────────
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  xdg.portal.enable = true;
+  # ── Desktop (Hyprland) ──────────────────────────────────────────────
+  programs.hyprland.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+      user = "greeter";
+    };
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  };
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+  };
 
   # ── Gaming ──────────────────────────────────────────────────────────
   programs.steam = {
@@ -103,6 +118,19 @@
     # Apps
     discord
     firefox
+    proton-pass
+
+    # Hyprland essentials
+    kitty
+    wofi
+    waybar
+    dunst
+    hyprpaper
+    wl-clipboard
+    networkmanagerapplet
+    pavucontrol
+    grim
+    slurp
 
     # System utilities
     git
