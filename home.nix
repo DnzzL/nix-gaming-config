@@ -3,6 +3,14 @@
 {
   home.stateVersion = "24.11";
 
+  # ── Cursor theme ────────────────────────────────────────────────────
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
