@@ -114,6 +114,8 @@
     wineWowPackages.staging
     winetricks
     dxvk
+    wine-mono
+    wine-gecko
 
     # Apps
     discord
