@@ -62,26 +62,15 @@
     pulse.enable = true;
   };
 
-  # ── Desktop (Hyprland) ──────────────────────────────────────────────
-  programs.hyprland.enable = true;
+  # ── Desktop (KDE Plasma 6 on X11) ───────────────────────────────────
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${pkgs.hyprland}/bin/Hyprland";
-      user = "greeter";
-    };
-  };
+  # Force X11 (not Wayland)
+  services.displayManager.defaultSession = "plasmax11";
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  };
-
-  environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-  };
+  xdg.portal.enable = true;
 
   # ── Gaming ──────────────────────────────────────────────────────────
   programs.steam = {
@@ -122,18 +111,7 @@
     discord
     firefox
     proton-pass
-
-    # Hyprland essentials
     ghostty
-    wofi
-    waybar
-    dunst
-    wl-clipboard
-    networkmanagerapplet
-    pavucontrol
-    grim
-    slurp
-    wlogout               # Power menu
 
     # System utilities
     git
