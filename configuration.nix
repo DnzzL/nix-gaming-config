@@ -62,13 +62,11 @@
     pulse.enable = true;
   };
 
-  # ── Desktop (KDE Plasma 6 on X11) ───────────────────────────────────
+  # ── Desktop (KDE Plasma 6) ──────────────────────────────────────────
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  # Force X11 (not Wayland)
-  services.displayManager.defaultSession = "plasmax11";
 
   xdg.portal.enable = true;
 
