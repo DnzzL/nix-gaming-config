@@ -70,6 +70,7 @@
 
   xdg.portal.enable = true;
 
+
   # ── Gaming ──────────────────────────────────────────────────────────
   programs.steam = {
     enable = true;
@@ -98,7 +99,12 @@
     gamescope             # Micro-compositor for games
 
     # Wine & DXVK (needed by Lutris for Rockstar Launcher)
-    wineWowPackages.staging
+    (wineWowPackages.staging.override {
+      wineRelease = "staging";
+      mingwSupport = true;
+      geckos = [ pkgs.wine-gecko ];
+      monos = [ pkgs.wine-mono ];
+    })
     winetricks
     dxvk
 
