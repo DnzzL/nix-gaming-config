@@ -6,11 +6,11 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
-  # nix.gc = {
-  #   automatic = true;
-  #   dates = "weekly";
-  #   options = "--delete-older-than +5"; # Keep last 5 generations
-  # };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than +5"; # Keep last 5 generations
+  };
 
   # ── Boot ────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
@@ -83,6 +83,13 @@
   # 32-bit support (required by many games)
   hardware.graphics.enable32Bit = true;
 
+  # ── Controllers ─────────────────────────────────────────────────────
+  hardware.xone.enable = true;        # Xbox One/Series controller (wired)
+  hardware.xpadneo.enable = true;     # Xbox controller Bluetooth support
+  services.udev.packages = with pkgs; [
+    game-devices-udev-rules           # udev rules for various controllers
+  ];
+
   # ── User ────────────────────────────────────────────────────────────
   users.users.thomas = {
     isNormalUser = true;
@@ -95,7 +102,6 @@
     heroic                # Epic Games & GOG launcher
     lutris                # Rockstar Launcher & other launchers
     protonup-qt           # Manage Proton/Wine versions
-    proton-ge-bin         # Latest Proton-GE
     mangohud              # FPS overlay
     gamescope             # Micro-compositor for games
 
