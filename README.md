@@ -7,11 +7,12 @@ A minimal NixOS configuration for a gaming desktop.
 **What's included:**
 - KDE Plasma 6 desktop with SDDM login screen
 - Nvidia proprietary drivers
-- Steam (with Proton support)
-- Heroic Games Launcher (for Epic Games & GOG)
-- Lutris + Wine (for Rockstar Games Launcher)
+- Steam with Proton-GE pinned declaratively (no manual ProtonUp step)
+- Heroic Games Launcher — Epic Games & GOG, incl. **GTA V** and the
+  Rockstar-from-Epic wrapper (handled natively)
+- Lutris + Wine — the **standalone Rockstar Games Launcher** (RDR2)
 - Discord, Firefox
-- GameMode, MangoHud, Gamescope
+- GameMode, MangoHud, Gamescope, `vm.max_map_count` tuned for games
 
 ## Installation
 
@@ -78,10 +79,34 @@ Your system will rebuild with all the gaming software and Nvidia drivers. Reboot
 
 ### Step 6: Set up game launchers
 
-- **Steam** — Open Steam from the app menu. Go to **Settings > Compatibility** and enable **Steam Play for all titles** to use Proton.
-- **Epic Games** — Open **Heroic Games Launcher** and sign into your Epic account.
-- **Rockstar Launcher** — Open **Lutris**, click the **+** button, search for "Rockstar Games Launcher" in the Lutris database, and install it from there.
-- **ProtonUp-Qt** — Use this to download extra Proton or Wine versions if a game needs a specific one.
+- **Steam** — Open Steam, go to **Settings > Compatibility**, enable
+  **Steam Play for all titles**, and pick **GE-Proton** (already pinned
+  by this config) as the default compatibility tool.
+
+- **GTA V (Epic) via Heroic** — Open **Heroic**, sign into Epic, and
+  install GTA V. The activation-code prompt is the Rockstar wrapper
+  failing to verify Epic ownership; Heroic works around it:
+  1. Use **Heroic 2.17+** (the fix is automated from that version).
+  2. On the game's **Settings → Advanced → Environment Variables**, add
+     `USE_FAKE_EPIC_EXE = true`.
+  3. Set the Proton version to **GE-Proton9-27 or newer**. If the
+     Rockstar Launcher won't open on GE-Proton **10-31/10-32**, fall
+     back to **GE-Proton10-30**.
+  4. If install is blocked on anticheat: General Settings → Advanced →
+     enable *"Allow installation of games with broken or denied
+     anticheat."*
+  - Note: **story mode only** — GTA Online's BattleEye is not authorised
+    on Linux and cannot be made to work.
+
+- **RDR2 via the standalone Rockstar Games Launcher (Lutris)** — Open
+  **Lutris**, **+ → Search Lutris website for installers**, find
+  *Rockstar Games Launcher*, and run the community install script. In the
+  runner options use a **wine-ge** build (download it in Lutris or via
+  ProtonUp-Qt), then sign in and install RDR2. Single-player works;
+  RDR Online is subject to the same anticheat limitation as GTA Online.
+
+- **ProtonUp-Qt** — Manages GE-Proton/wine-ge runners for **Heroic and
+  Lutris**. (Steam's Proton-GE is already provided by this config.)
 
 ## Making changes
 

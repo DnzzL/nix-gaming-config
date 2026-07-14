@@ -74,14 +74,30 @@
   # ── Gaming ──────────────────────────────────────────────────────────
   programs.steam = {
     enable = true;
-    gamescopeSession.enable = true;  # Optional: gamescope compositing
+    gamescopeSession.enable = true;   # "Gaming Mode" session at login
     remotePlay.openFirewall = true;
+
+    # Declaratively pin Proton-GE into Steam's compatibility dropdown.
+    # Reproducible — no manual ProtonUp-Qt step needed for Steam games.
+    # (Heroic/Lutris manage their own runners; see ProtonUp-Qt below.)
+    extraCompatPackages = with pkgs; [ proton-ge-bin ];
   };
 
   programs.gamemode.enable = true; # Feral GameMode for performance
 
+  # Gamescope micro-compositor with permission to renice itself for
+  # smoother frame pacing (upscaling, framerate cap, HDR passthrough).
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
+
   # 32-bit support (required by many games)
   hardware.graphics.enable32Bit = true;
+
+  # Many modern games (Rockstar titles especially) exhaust the default
+  # mmap limit and crash on launch. Valve sets this on SteamOS by default.
+  boot.kernel.sysctl."vm.max_map_count" = 2147483642;
 
   # ── Controllers ─────────────────────────────────────────────────────
   hardware.xone.enable = true;        # Xbox One/Series controller (wired)
@@ -98,17 +114,19 @@
 
   # ── Packages ────────────────────────────────────────────────────────
   environment.systemPackages = with pkgs; [
-    # Gaming
-    heroic                # Epic Games & GOG launcher
-    lutris                # Rockstar Launcher & other launchers
-    protonup-qt           # Manage Proton/Wine versions
-    mangohud              # FPS overlay
-    gamescope             # Micro-compositor for games
+    # Gaming launchers
+    heroic                # Epic Games & GOG (runs GTA V + the Rockstar
+                          # wrapper natively — see notes in README)
+    lutris                # Standalone Rockstar Games Launcher (RDR2)
+    protonup-qt           # Manage GE-Proton runners for Heroic & Lutris
+    mangohud              # FPS / stats overlay
 
-    # Wine & DXVK (needed by Lutris for Rockstar Launcher)
+    # Wine (needed by Lutris to install the Rockstar Games Launcher).
+    # DXVK is NOT installed system-wide — it's provided per-prefix by the
+    # Proton / wine-ge runner, which is the only version that matters.
     wineWowPackages.staging
     winetricks
-    dxvk
+    protontricks          # winetricks for Steam/Proton prefixes
 
     # Cursor theme
     bibata-cursors
